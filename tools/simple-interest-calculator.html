@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Interest Calculator</title>
+    <link rel="stylesheet" href="../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <!-- Header -->
+    <header class="bg-gray-900 shadow-md fixed w-full top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <h2 class="text-white text-2xl font-bold">Lawgical Station</h2>
+                <nav class="hidden md:flex items-center space-x-6">
+                    <a href="../index.html" class="text-white hover:text-blue-600">Home</a>
+                    <a href="../services.html" class="text-white hover:text-blue-600">Services</a>
+                    <a href="../about.html" class="text-white hover:text-blue-600">About Us</a>
+                    <a href="../tools.html" class="text-white hover:text-blue-600">Tools</a>
+                    <a href="../contact.html" class="text-white hover:text-blue-600">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-8 md:py-16">
+        <div class="max-w-4xl mx-auto">
+            <!-- Header Section -->
+            <div class="text-center mb-8">
+                <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2">Simple Interest Calculator</h1>
+                <p class="text-gray-600">Calculate your returns with our easy-to-use simple interest calculator</p>
+            </div>
+
+            <!-- Main Calculator Card -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <!-- Grid Layout -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 p-4 md:p-8">
+                    <!-- Input Section -->
+                    <div class="space-y-4 md:space-y-6">
+                        <div class="bg-gray-50 p-4 md:p-6 rounded-lg">
+                            <div class="space-y-4">
+                                <div>
+                                    <label for="principal" class="block text-sm font-medium text-gray-700 mb-1">Principal Amount (₹)</label>
+                                    <div class="relative">
+                                        <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">₹</span>
+                                        <input type="number" id="principal" value="10000" min="0"
+                                            class="block w-full pl-8 pr-4 py-3 rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500 bg-white shadow-sm">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="rate" class="block text-sm font-medium text-gray-700 mb-1">Interest Rate (% p.a)</label>
+                                    <div class="relative">
+                                        <input type="number" id="rate" value="5" min="0" step="0.1"
+                                            class="block w-full px-4 py-3 rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500 bg-white shadow-sm">
+                                        <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">%</span>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="time" class="block text-sm font-medium text-gray-700 mb-1">Time Period</label>
+                                    <div class="relative">
+                                        <input type="number" id="time" value="2" min="0" step="0.1"
+                                            class="block w-full px-4 py-3 rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500 bg-white shadow-sm">
+                                        <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">Years</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Results Section -->
+                        <div class="bg-gray-50 p-4 md:p-6 rounded-lg">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Results</h3>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center p-3 bg-white rounded-lg">
+                                    <span class="text-gray-600">Principal Amount</span>
+                                    <span id="result-principal" class="font-semibold text-gray-800">₹10,000</span>
+                                </div>
+                                <div class="flex justify-between items-center p-3 bg-white rounded-lg">
+                                    <span class="text-gray-600">Total Interest</span>
+                                    <span id="result-interest" class="font-semibold text-green-600">₹1,000</span>
+                                </div>
+                                <div class="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+                                    <span class="text-gray-600">Total Amount</span>
+                                    <span id="result-total" class="font-bold text-blue-600">₹11,000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chart Section -->
+                    <div class="bg-gray-50 p-4 md:p-6 rounded-lg h-auto">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Distribution Overview</h3>
+                        <div class="w-full h-[300px] md:aspect-square">
+                            <canvas id="chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Info Card -->
+            <div class="mt-8 bg-blue-50 rounded-xl p-6">
+                <h3 class="text-lg font-semibold text-blue-800 mb-2">How it works</h3>
+                <p class="text-blue-600">Simple Interest = (Principal × Rate × Time) ÷ 100</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let chart;
+
+        function calculateSI() {
+            const principal = parseFloat(document.getElementById('principal').value);
+            const rate = parseFloat(document.getElementById('rate').value);
+            const time = parseFloat(document.getElementById('time').value);
+
+            const interest = (principal * rate * time) / 100;
+            const totalAmount = principal + interest;
+
+            // Update results
+            document.getElementById('result-principal').textContent = '₹' + principal.toLocaleString();
+            document.getElementById('result-interest').textContent = '₹' + interest.toLocaleString();
+            document.getElementById('result-total').textContent = '₹' + totalAmount.toLocaleString();
+
+            updateChart(principal, interest);
+        }
+
+        function updateChart(principal, interest) {
+            if (chart) {
+                chart.destroy();
+            }
+
+            const ctx = document.getElementById('chart').getContext('2d');
+            chart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Principal', 'Interest'],
+                    datasets: [{
+                        data: [principal, interest],
+                        backgroundColor: ['#3b82f6', '#22c55e'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                font: {
+                                    size: 14
+                                }
+                            }
+                        }
+                    },
+                    cutout: '60%'
+                }
+            });
+        }
+
+        // Add event listeners
+        document.getElementById('principal').addEventListener('input', calculateSI);
+        document.getElementById('rate').addEventListener('input', calculateSI);
+        document.getElementById('time').addEventListener('input', calculateSI);
+
+        // Initial calculation
+        calculateSI();
+    </script>
+</body>
+</html>

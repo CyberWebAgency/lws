@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMI Calculator</title>
+    <link rel="stylesheet" href="../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <!-- Header -->
+    <header class="bg-gray-900 shadow-md fixed w-full top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <h2 class="text-white text-2xl font-bold">Lawgical Station</h2>
+                <nav class="hidden md:flex items-center space-x-6">
+                    <a href="../index.html" class="text-white hover:text-blue-600">Home</a>
+                    <a href="../services.html" class="text-white hover:text-blue-600">Services</a>
+                    <a href="../about.html" class="text-white hover:text-blue-600">About Us</a>
+                    <a href="../tools.html" class="text-white hover:text-blue-600">Tools</a>
+                    <a href="../contact.html" class="text-white hover:text-blue-600">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-8 md:py-16">
+        <div class="max-w-4xl mx-auto">
+            <!-- Header Section -->
+            <div class="text-center mb-8">
+                <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2">EMI Calculator</h1>
+                <p class="text-gray-600">Calculate your monthly EMI payments and loan amortization schedule</p>
+            </div>
+
+            <!-- Main Calculator Card -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <!-- Grid Layout -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 p-4 md:p-8">
+                    <!-- Input Section -->
+                    <div class="space-y-4 md:space-y-6">
+                        <div class="bg-gray-50 p-4 md:p-6 rounded-lg">
+                            <div class="space-y-4">
+                                <div>
+                                    <label for="principal" class="block text-sm font-medium text-gray-700 mb-1">Loan Amount (₹)</label>
+                                    <div class="relative">
+                                        <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">₹</span>
+                                        <input type="number" id="principal" value="1000000" min="0"
+                                            class="block w-full pl-8 pr-4 py-3 rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500 bg-white shadow-sm">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="rate" class="block text-sm font-medium text-gray-700 mb-1">Interest Rate (% p.a)</label>
+                                    <div class="relative">
+                                        <input type="number" id="rate" value="10.5" min="0" step="0.1"
+                                            class="block w-full px-4 py-3 rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500 bg-white shadow-sm">
+                                        <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">%</span>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="tenure" class="block text-sm font-medium text-gray-700 mb-1">Loan Tenure</label>
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div class="relative">
+                                            <input type="number" id="tenure" value="20" min="1"
+                                                class="block w-full px-4 py-3 rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500 bg-white shadow-sm">
+                                        </div>
+                                        <select id="tenure-type" class="block w-full px-4 py-3 rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500 bg-white shadow-sm">
+                                            <option value="years">Years</option>
+                                            <option value="months">Months</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Results Section -->
+                        <div class="bg-gray-50 p-4 md:p-6 rounded-lg">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Loan Summary</h3>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center p-3 bg-white rounded-lg">
+                                    <span class="text-gray-600">Monthly EMI</span>
+                                    <span id="result-emi" class="font-semibold text-blue-600">₹9,965</span>
+                                </div>
+                                <div class="flex justify-between items-center p-3 bg-white rounded-lg">
+                                    <span class="text-gray-600">Total Interest</span>
+                                    <span id="result-interest" class="font-semibold text-green-600">₹13,91,600</span>
+                                </div>
+                                <div class="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+                                    <span class="text-gray-600">Total Payment</span>
+                                    <span id="result-total" class="font-bold text-blue-600">₹23,91,600</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chart Section -->
+                    <div class="space-y-4 md:space-y-6">
+                        <div class="bg-gray-50 p-4 md:p-6 rounded-lg">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Payment Distribution</h3>
+                            <div class="w-full h-[300px] md:aspect-square">
+                                <canvas id="pieChart"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 md:p-6 rounded-lg">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Amortization Chart</h3>
+                            <div class="w-full h-[200px]">
+                                <canvas id="lineChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Info Card -->
+            <div class="mt-8 bg-blue-50 rounded-xl p-6">
+                <h3 class="text-lg font-semibold text-blue-800 mb-2">How EMI is Calculated</h3>
+                <p class="text-blue-600">EMI = P × r × (1 + r)^n / ((1 + r)^n - 1)</p>
+                <p class="text-sm text-blue-500 mt-2">Where: P = Principal, r = Monthly interest rate, n = Total number of months</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let pieChart, lineChart;
+
+        function calculateEMI() {
+            const principal = parseFloat(document.getElementById('principal').value);
+            const annualRate = parseFloat(document.getElementById('rate').value);
+            const tenure = parseFloat(document.getElementById('tenure').value);
+            const tenureType = document.getElementById('tenure-type').value;
+
+            // Convert tenure to months if in years
+            const tenureMonths = tenureType === 'years' ? tenure * 12 : tenure;
+            
+            // Convert annual rate to monthly rate
+            const monthlyRate = (annualRate / 12) / 100;
+
+            // Calculate EMI
+            const emi = principal * monthlyRate * Math.pow(1 + monthlyRate, tenureMonths) / (Math.pow(1 + monthlyRate, tenureMonths) - 1);
+            
+            const totalPayment = emi * tenureMonths;
+            const totalInterest = totalPayment - principal;
+
+            // Update results
+            document.getElementById('result-emi').textContent = '₹' + emi.toLocaleString(undefined, {maximumFractionDigits: 0});
+            document.getElementById('result-interest').textContent = '₹' + totalInterest.toLocaleString(undefined, {maximumFractionDigits: 0});
+            document.getElementById('result-total').textContent = '₹' + totalPayment.toLocaleString(undefined, {maximumFractionDigits: 0});
+
+            updateCharts(principal, totalInterest, tenureMonths, emi);
+        }
+
+        function updateCharts(principal, totalInterest, tenureMonths, emi) {
+            // Update Pie Chart
+            if (pieChart) {
+                pieChart.destroy();
+            }
+
+            const ctx = document.getElementById('pieChart').getContext('2d');
+            pieChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Principal', 'Interest'],
+                    datasets: [{
+                        data: [principal, totalInterest],
+                        backgroundColor: ['#3b82f6', '#22c55e'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                font: {
+                                    size: 14
+                                }
+                            }
+                        }
+                    },
+                    cutout: '60%'
+                }
+            });
+
+            // Update Line Chart
+            if (lineChart) {
+                lineChart.destroy();
+            }
+
+            // Generate amortization data
+            const monthlyRate = (parseFloat(document.getElementById('rate').value) / 12) / 100;
+            let remainingBalance = principal;
+            const balanceData = [];
+            const labels = [];
+
+            for (let i = 0; i <= tenureMonths; i += Math.max(1, Math.floor(tenureMonths/12))) {
+                balanceData.push(remainingBalance);
+                labels.push(`Year ${Math.floor(i/12)}`);
+                
+                // Calculate remaining balance after i months
+                if (i < tenureMonths) {
+                    const interestPayment = remainingBalance * monthlyRate;
+                    const principalPayment = emi - interestPayment;
+                    remainingBalance -= principalPayment;
+                }
+            }
+
+            const lineCtx = document.getElementById('lineChart').getContext('2d');
+            lineChart = new Chart(lineCtx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Loan Balance',
+                        data: balanceData,
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: value => '₹' + value.toLocaleString()
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Add event listeners
+        document.getElementById('principal').addEventListener('input', calculateEMI);
+        document.getElementById('rate').addEventListener('input', calculateEMI);
+        document.getElementById('tenure').addEventListener('input', calculateEMI);
+        document.getElementById('tenure-type').addEventListener('change', calculateEMI);
+
+        // Initial calculation
+        calculateEMI();
+    </script>
+</body>
+</html> 

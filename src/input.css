@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles */
+@layer components {
+  .hover-scale {
+    @apply transform transition duration-300 hover:scale-105;
+  }
+}
+
+/* Flip Card Styles */
+.flip-card {
+    @apply perspective-1000 relative;
+}
+
+.flip-card-inner {
+    @apply relative w-full h-full transition-transform duration-500 transform-style-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+    @apply rotate-y-180;
+}
+
+.flip-card-front,
+.flip-card-back {
+    @apply absolute w-full h-full backface-hidden;
+}
+
+.flip-card-back {
+    @apply rotate-y-180;
+}
+
+/* Add 3D transform styles */
+.perspective-1000 {
+    perspective: 1000px;
+}
+
+.transform-style-3d {
+    transform-style: preserve-3d;
+}
+
+.backface-hidden {
+    backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+    transform: rotateY(180deg);
+}
+
+/* Service card hover effects */
+.service-card {
+    @apply transition-all duration-300 ease-in-out;
+}
+
+.service-card:hover {
+    @apply transform -translate-y-2 shadow-xl;
+}
+
+/* Animation for fade in */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+} 

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TDS Calculator</title>
+    <link rel="stylesheet" href="../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <!-- Header -->
+    <header class="bg-gray-900 shadow-md fixed w-full top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <h2 class="text-white text-2xl font-bold">Lawgical Station</h2>
+                <nav class="hidden md:flex items-center space-x-6">
+                    <a href="../index.html" class="text-white hover:text-blue-600">Home</a>
+                    <a href="../services.html" class="text-white hover:text-blue-600">Services</a>
+                    <a href="../about.html" class="text-white hover:text-blue-600">About Us</a>
+                    <a href="../tools.html" class="text-white hover:text-blue-600">Tools</a>
+                    <a href="../contact.html" class="text-white hover:text-blue-600">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-8 md:py-16">
+        <div class="max-w-4xl mx-auto">
+            <!-- Header Section -->
+            <div class="text-center mb-8">
+                <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2">TDS Calculator</h1>
+                <p class="text-gray-600">Calculate Tax Deducted at Source as per Income Tax Act</p>
+            </div>
+
+            <!-- Main Calculator Card -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 p-4 md:p-8">
+                    <!-- Input Section -->
+                    <div class="space-y-4 md:space-y-6">
+                        <div class="bg-gray-50 p-4 md:p-6 rounded-lg">
+                            <div class="space-y-4">
+                                <div>
+                                    <label for="section" class="block text-sm font-medium text-gray-700 mb-1">TDS Section</label>
+                                    <select id="section" class="block w-full px-4 py-3 rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500 bg-white shadow-sm">
+                                        <option value="192A">192A - Premature withdrawal from EPF</option>
+                                        <option value="193">193 - Interest on securities</option>
+                                        <option value="194">194 - Dividend other than dividend as referred to in Section 115-O</option>
+                                        <option value="194A">194A - Interest from banks</option>
+                                        <option value="194B">194B - Income from lottery winnings, and other games</option>
+                                        <option value="194BB">194BB - Income from horse race winnings</option>
+                                        <option value="194C-single">194C - Single Payment to Contractor/Subcontractor</option>
+                                        <option value="194C-regular">194C - FY Payment to Contractor/Subcontractor</option>
+                                        <option value="194D">194D - Insurance commission</option>
+                                        <option value="194H">194H - Commission or brokerage</option>
+                                        <option value="194I-A">194I(A) - Rent on plant and machinery</option>
+                                        <option value="194I-B">194I(B) - Rent on land & building or furniture</option>
+                                        <option value="194IA">194IA - Transfer of immovable property</option>
+                                        <option value="194IB">194IB - Rent payment to landlord</option>
+                                        <option value="194J-prof">194J - Fees for professional service/royalty</option>
+                                        <option value="194J-tech">194J - Fees for technical service/call center</option>
+                                        <option value="194K">194K - Income from mutual fund units</option>
+                                        <option value="194O">194O - E-commerce payments</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label for="recipient-type" class="block text-sm font-medium text-gray-700 mb-1">Recipient Type</label>
+                                    <select id="recipient-type" class="block w-full px-4 py-3 rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500 bg-white shadow-sm">
+                                        <option value="individual">Individual/HUF/Sole Proprietor</option>
+                                        <option value="others">Others</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label for="amount" class="block text-sm font-medium text-gray-700 mb-1">Payment Amount (₹)</label>
+                                    <div class="relative">
+                                        <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">₹</span>
+                                        <input type="number" id="amount" value="100000" min="0"
+                                            class="block w-full pl-8 pr-4 py-3 rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500 bg-white shadow-sm">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="pan-status" class="block text-sm font-medium text-gray-700 mb-1">PAN Status</label>
+                                    <select id="pan-status" class="block w-full px-4 py-3 rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500 bg-white shadow-sm">
+                                        <option value="valid">Valid PAN</option>
+                                        <option value="invalid">Invalid/No PAN</option>
+                                    </select>
+                                </div>
+
+                                <div id="residential-status-container" class="hidden">
+                                    <label for="residential-status" class="block text-sm font-medium text-gray-700 mb-1">Residential Status</label>
+                                    <select id="residential-status" class="block w-full px-4 py-3 rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500 bg-white shadow-sm">
+                                        <option value="resident">Resident</option>
+                                        <option value="non-resident">Non-Resident</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Results Section -->
+                        <div class="bg-gray-50 p-4 md:p-6 rounded-lg">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">TDS Calculation</h3>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center p-3 bg-white rounded-lg">
+                                    <span class="text-gray-600">Gross Amount</span>
+                                    <span id="result-gross" class="font-semibold text-gray-800">₹1,00,000</span>
+                                </div>
+                                <div class="flex justify-between items-center p-3 bg-white rounded-lg">
+                                    <span class="text-gray-600">TDS Rate</span>
+                                    <span id="result-rate" class="font-semibold text-blue-600">10%</span>
+                                </div>
+                                <div class="flex justify-between items-center p-3 bg-white rounded-lg">
+                                    <span class="text-gray-600">Surcharge</span>
+                                    <span id="result-surcharge" class="font-semibold text-purple-600">₹0</span>
+                                </div>
+                                <div class="flex justify-between items-center p-3 bg-white rounded-lg">
+                                    <span class="text-gray-600">Health & Education Cess</span>
+                                    <span id="result-cess" class="font-semibold text-green-600">₹0</span>
+                                </div>
+                                <div class="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+                                    <span class="text-gray-600">Total TDS Amount</span>
+                                    <span id="result-tds" class="font-bold text-blue-600">₹10,000</span>
+                                </div>
+                                <div class="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+                                    <span class="text-gray-600">Net Amount Payable</span>
+                                    <span id="result-net" class="font-bold text-green-600">₹90,000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Information Section -->
+                    <div class="space-y-4 md:space-y-6">
+                        <div class="bg-gray-50 p-4 md:p-6 rounded-lg">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Section Details</h3>
+                            <div id="section-info" class="prose text-gray-600">
+                                <!-- Section details will be populated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-50 p-4 md:p-6 rounded-lg">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Distribution</h3>
+                            <div class="w-full h-[300px] md:aspect-square">
+                                <canvas id="pieChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Info Card -->
+            <div class="mt-8 bg-blue-50 rounded-xl p-6">
+                <h3 class="text-lg font-semibold text-blue-800 mb-2">Important Notes</h3>
+                <ul class="text-sm text-blue-600 space-y-2">
+                    <li>• Higher rate of TDS (20%) applies when PAN is not provided</li>
+                    <li>• Surcharge applies on payments exceeding specified thresholds</li>
+                    <li>• Health and Education Cess of 4% is applicable on TDS amount</li>
+                    <li>• Different rates apply for non-residents based on DTAA</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let pieChart;
+        
+        // TDS Section Details
+        const sectionDetails = {
+            "192A": {
+                name: "Premature withdrawal from EPF",
+                description: "TDS on premature withdrawals from Employee Provident Fund",
+                threshold: 50000,
+                baseRate: 10,
+                noPanRate: 20
+            },
+            "193": {
+                name: "Interest on securities",
+                description: "TDS on interest payments on securities",
+                threshold: 5000,
+                baseRate: 10,
+                noPanRate: 20
+            },
+            "194": {
+                name: "Dividend",
+                description: "TDS on dividend payments",
+                threshold: 5000,
+                baseRate: 10,
+                noPanRate: 20
+            },
+            "194A": {
+                name: "Interest from banks",
+                description: "TDS on interest from banks, co-operative society, post office",
+                threshold: 40000,
+                baseRate: 10,
+                noPanRate: 20
+            },
+            "194B": {
+                name: "Lottery/Game Show Winnings",
+                description: "TDS on income from lottery, crossword puzzles, game shows",
+                threshold: 10000,
+                baseRate: 30,
+                noPanRate: 30
+            },
+            "194BB": {
+                name: "Horse Race Winnings",
+                description: "TDS on income from horse races",
+                threshold: 10000,
+                baseRate: 30,
+                noPanRate: 30
+            },
+            "194C-single": {
+                name: "Single Payment to Contractor/Subcontractor",
+                description: "TDS on single payment to a contractor or subcontractor",
+                threshold: 30000,
+                baseRate: 2,
+                noPanRate: 20
+            },
+            "194C-regular": {
+                name: "FY Payment to Contractor/Subcontractor",
+                description: "TDS on yearly payment to a contractor or subcontractor",
+                threshold: 30000,
+                baseRate: 2,
+                noPanRate: 20
+            },
+            "194D": {
+                name: "Insurance Commission",
+                description: "TDS on commission received from an insurance company",
+                threshold: 5000,
+                baseRate: 1,
+                noPanRate: 5
+            },
+            "194H": {
+                name: "Commission or brokerage",
+                description: "TDS on commission or brokerage payments",
+                threshold: 15000,
+                baseRate: 5,
+                noPanRate: 20
+            },
+            "194I-A": {
+                name: "Rent on plant and machinery",
+                description: "TDS on rent for plant and machinery",
+                threshold: 240000,
+                baseRate: 10,
+                noPanRate: 20
+            },
+            "194I-B": {
+                name: "Rent on land & building or furniture",
+                description: "TDS on rent for land, building, or furniture",
+                threshold: 240000,
+                baseRate: 10,
+                noPanRate: 20
+            },
+            "194IA": {
+                name: "Transfer of immovable property",
+                description: "TDS on transfer of immovable property",
+                threshold: 240000,
+                baseRate: 10,
+                noPanRate: 20
+            },
+            "194IB": {
+                name: "Rent payment to landlord",
+                description: "TDS on rent payment to a landlord",
+                threshold: 240000,
+                baseRate: 10,
+                noPanRate: 20
+            },
+            "194J-prof": {
+                name: "Fees for professional service/royalty",
+                description: "TDS on fees for professional services or royalties",
+                threshold: 30000,
+                baseRate: 10,
+                noPanRate: 20
+            },
+            "194J-tech": {
+                name: "Fees for technical service/call center",
+                description: "TDS on fees for technical services or call center services",
+                threshold: 30000,
+                baseRate: 2,
+                noPanRate: 5
+            },
+            "194K": {
+                name: "Income from mutual fund units",
+                description: "TDS on income from mutual fund units",
+                threshold: 5000,
+                baseRate: 1,
+                noPanRate: 5
+            },
+            "194O": {
+                name: "E-commerce Payments",
+                description: "TDS on payments by e-commerce operators to e-commerce participants",
+                threshold: 5000,
+                baseRate: 1,
+                noPanRate: 5
+            }
+        };
+
+        function calculateTDS() {
+            const section = document.getElementById('section').value;
+            const amount = parseFloat(document.getElementById('amount').value);
+            const panStatus = document.getElementById('pan-status').value;
+            const recipientType = document.getElementById('recipient-type').value;
+
+            // Get section details
+            const sectionInfo = sectionDetails[section];
+            
+            // Check threshold
+            if (amount <= sectionInfo.threshold) {
+                // Show no TDS required message
+                document.getElementById('result-tds').textContent = 'No TDS Required';
+                document.getElementById('result-rate').textContent = '0%';
+                updateChart(amount, 0);
+                return;
+            }
+
+            // Determine rate based on section and PAN status
+            let rate = sectionInfo.baseRate;
+            if (panStatus === 'invalid') {
+                rate = Math.max(sectionInfo.noPanRate, 20); // Higher of section rate or 20%
+            }
+
+            // Special rates for certain recipient types
+            if (recipientType === 'others' && section === '194J-tech') {
+                rate = 2; // Special rate for technical services to companies
+            }
+
+            // Calculate basic TDS
+            let tdsAmount = amount * (rate / 100);
+
+            // Calculate surcharge based on amount thresholds
+            let surcharge = 0;
+            if (amount > 10000000) { // > 1 crore
+                surcharge = tdsAmount * 0.10;
+            } else if (amount > 5000000) { // > 50 lakhs
+                surcharge = tdsAmount * 0.05;
+            }
+
+            // Calculate cess
+            const cess = (tdsAmount + surcharge) * 0.04;
+
+            const totalTDS = tdsAmount + surcharge + cess;
+            const netAmount = amount - totalTDS;
+
+            // Update results with more detailed breakdown
+            updateResults(amount, rate, tdsAmount, surcharge, cess, totalTDS, netAmount);
+            updateSectionInfo(section);
+            updateChart(amount, totalTDS);
+        }
+
+        function updateResults(amount, rate, tdsAmount, surcharge, cess, totalTDS, netAmount) {
+            document.getElementById('result-gross').textContent = '₹' + amount.toLocaleString();
+            document.getElementById('result-rate').textContent = rate + '%';
+            document.getElementById('result-surcharge').textContent = '₹' + surcharge.toLocaleString(undefined, {maximumFractionDigits: 0});
+            document.getElementById('result-cess').textContent = '₹' + cess.toLocaleString(undefined, {maximumFractionDigits: 0});
+            document.getElementById('result-tds').textContent = '₹' + totalTDS.toLocaleString(undefined, {maximumFractionDigits: 0});
+            document.getElementById('result-net').textContent = '₹' + netAmount.toLocaleString(undefined, {maximumFractionDigits: 0});
+        }
+
+        function updateSectionInfo(section) {
+            const info = sectionDetails[section];
+            const infoHtml = `
+                <h4 class="font-semibold mb-2">${info.name}</h4>
+                <p class="mb-2">${info.description}</p>
+                <ul class="space-y-1">
+                    <li>• Threshold Limit: ₹${info.threshold.toLocaleString()}</li>
+                    <li>• Base Rate: ${info.baseRate}%</li>
+                    <li>• Rate without PAN: ${info.noPanRate}%</li>
+                </ul>
+            `;
+            document.getElementById('section-info').innerHTML = infoHtml;
+        }
+
+        function updateChart(income, tds) {
+            // Update Pie Chart
+            if (pieChart) {
+                pieChart.destroy();
+            }
+
+            const ctx = document.getElementById('pieChart').getContext('2d');
+            pieChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Income', 'TDS'],
+                    datasets: [{
+                        data: [income - tds, tds],
+                        backgroundColor: ['#3b82f6', '#f87171'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                font: {
+                                    size: 14
+                                }
+                            }
+                        }
+                    },
+                    cutout: '60%'
+                }
+            });
+        }
+
+        // Add event listeners
+        document.getElementById('section').addEventListener('change', calculateTDS);
+        document.getElementById('amount').addEventListener('input', calculateTDS);
+        document.getElementById('pan-status').addEventListener('change', calculateTDS);
+        document.getElementById('recipient-type').addEventListener('change', calculateTDS);
+
+        // Initial calculation
+        calculateTDS();
+    </script>
+</body>
+</html>

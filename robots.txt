@@ -1,0 +1,30 @@
+User-agent: *
+Allow: /
+Allow: /sitemap.xml
+
+# Prevent crawling of admin areas
+Disallow: /admin/
+Disallow: /wp-admin/
+Disallow: /backend/
+
+# Allow crawling of important directories
+Allow: /services/
+Allow: /about/
+Allow: /contact/
+Allow: /blog/
+Allow: /resources/
+
+# Prevent crawling of unnecessary files
+Disallow: /*.pdf$
+Disallow: /*.doc$
+Disallow: /*.docx$
+Disallow: /*.xls$
+Disallow: /*.xlsx$
+
+# Prevent duplicate content
+Disallow: /*?*sort=
+Disallow: /*?*filter=
+Disallow: /*?*search=
+
+# Sitemap location
+Sitemap: https://www.lawgicalstation.com/sitemap.xml 

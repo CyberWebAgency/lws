@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   <!-- Homepage -->
+   <url>
+      <loc>https://www.lawgicalstation.com/</loc>
+      <changefreq>daily</changefreq>
+      <priority>1.0</priority>
+   </url>
+
+   <!-- Main Service Pages -->
+   <url>
+      <loc>https://www.lawgicalstation.com/services/</loc>
+      <changefreq>weekly</changefreq>
+      <priority>0.9</priority>
+   </url>
+   <url>
+      <loc>https://www.lawgicalstation.com/services/business-registration/</loc>
+      <changefreq>weekly</changefreq>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://www.lawgicalstation.com/services/tax-services/</loc>
+      <changefreq>weekly</changefreq>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://www.lawgicalstation.com/services/financial-services/</loc>
+      <changefreq>weekly</changefreq>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://www.lawgicalstation.com/services/trademark-ip/</loc>
+      <changefreq>weekly</changefreq>
+      <priority>0.8</priority>
+   </url>
+
+   <!-- About Pages -->
+   <url>
+      <loc>https://www.lawgicalstation.com/about/</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.7</priority>
+   </url>
+   <url>
+      <loc>https://www.lawgicalstation.com/about/team/</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.6</priority>
+   </url>
+
+   <!-- Contact Pages -->
+   <url>
+      <loc>https://www.lawgicalstation.com/contact/</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.7</priority>
+   </url>
+
+   <!-- Tools Pages -->
+   <url>
+      <loc>https://www.lawgicalstation.com/tools/</loc>
+      <changefreq>weekly</changefreq>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://www.lawgicalstation.com/tools/gst-calculator/</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.6</priority>
+   </url>
+   <url>
+      <loc>https://www.lawgicalstation.com/tools/tax-calculator/</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.6</priority>
+   </url>
+
+   <!-- Blog Section -->
+   <url>
+      <loc>https://www.lawgicalstation.com/blog/</loc>
+      <changefreq>daily</changefreq>
+      <priority>0.8</priority>
+   </url>
+
+   <!-- Resources -->
+   <url>
+      <loc>https://www.lawgicalstation.com/resources/</loc>
+      <changefreq>weekly</changefreq>
+      <priority>0.7</priority>
+   </url>
+
+   <!-- Legal Pages -->
+   <url>
+      <loc>https://www.lawgicalstation.com/privacy-policy/</loc>
+      <changefreq>yearly</changefreq>
+      <priority>0.3</priority>
+   </url>
+   <url>
+      <loc>https://www.lawgicalstation.com/terms-conditions/</loc>
+      <changefreq>yearly</changefreq>
+      <priority>0.3</priority>
+   </url>
+</urlset> 

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Lawgical Station - Expert Financial & Tax Services in India</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Get in touch with Lawgical Station for expert financial & tax services in India. 24/7 support, free consultation, and professional guidance for all your tax and financial needs.">
+    <meta name="keywords" content="contact Lawgical Station, tax services contact, financial services India, business consultation, tax expert contact, CA services Agra">
+    <meta name="author" content="Lawgical Station">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Contact Lawgical Station - Expert Financial & Tax Services">
+    <meta property="og:description" content="Connect with India's trusted financial & tax experts. Get professional guidance and support for all your business needs.">
+    <meta property="og:image" content="img/b5.png">
+    <meta property="og:url" content="https://lawgicalstation.com/contact">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Contact Lawgical Station - Expert Financial & Tax Services">
+    <meta name="twitter:description" content="Connect with India's trusted financial & tax experts. Get professional guidance and support for all your business needs.">
+    <meta name="twitter:image" content="img/b5.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://lawgicalstation.com/contact" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="favicon.jpg" />
+    
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css" />
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      "mainEntity": {
+        "@type": "Organization",
+        "name": "Lawgical Station",
+        "description": "Expert Financial & Tax Services in India",
+        "url": "https://lawgicalstation.com",
+        "logo": "img/b5.png",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Shop No. 14, Block C-23/14, 2nd Floor Mukharjee Complex, Sanjay Place",
+          "addressLocality": "Agra",
+          "addressRegion": "Uttar Pradesh",
+          "postalCode": "",
+          "addressCountry": "IN"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+919826000000",
+          "contactType": "customer service",
+          "availableLanguage": ["English", "Hindi"],
+          "email": "contact@lawgicalstation.com"
+        },
+        "sameAs": [
+          "https://www.facebook.com/lawgicalstation",
+          "https://twitter.com/lawgicalstation",
+          "https://www.linkedin.com/company/lawgicalstation"
+        ]
+      }
+    }
+    </script>
+</head>
+<body class="font-sans">
+    <!-- Include navbar template -->
+    <div id="navbar-placeholder"></div>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-12 bg-gradient-to-r from-gray-900 to-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="text-center text-white">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">Get in Touch</h1>
+                <p class="text-xl mb-4">We're here to help with your Financial and tax needs</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Information Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Contact Form -->
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <h2 class="text-3xl font-bold text-center mb-8">Send Us a Message</h2>
+                    <div id="successMessage" class="hidden bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+                        <span class="block sm:inline"></span>
+                    </div>
+                    <form id="contactForm" action="backend/contact.php" method="POST" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-gray-700 mb-2">Full Name *</label>
+                                <input type="text" name="full_name" required
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent">
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 mb-2">Email Address *</label>
+                                <input type="email" name="email" required
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-gray-700 mb-2">Phone Number *</label>
+                                <input type="tel" name="phone" required
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent">
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 mb-2">Service Required *</label>
+                                <select name="service_required" required
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent">
+                                    <option value="">Select a service</option>
+                                    <option value="Business Registration">Business Registration</option>
+                                    <option value="Tax Services">Tax Services</option>
+                                    <option value="Financial Services">Financial Services</option>
+                                    <option value="Trademark & IP">Trademark & IP</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2">Message *</label>
+                            <textarea name="message" rows="4" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"></textarea>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" name="consent" id="consent" required class="mr-2">
+                            <label for="consent" class="text-gray-600 text-sm">
+                                I agree to the processing of my personal data and accept the privacy policy
+                            </label>
+                        </div>
+                        <button type="submit" 
+                            class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Contact Information -->
+                <div class="space-y-8">
+                    <div class="relative rounded-lg overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
+                             alt="Office" 
+                             class="w-full h-64 object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-r from-gray-900 to-transparent opacity-75"></div>
+                        <div class="absolute bottom-0 left-0 p-6 text-white">
+                            <h3 class="text-2xl font-bold mb-2">Visit Our Office</h3>
+                            <p>123 Business Avenue, City, State 12345</p>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <img src="https://cdn-icons-png.flaticon.com/512/4233/4233839.png" alt="24/7 Support" class="w-16 h-16 mb-4">
+                            <h4 class="font-bold mb-2">24/7 Support</h4>
+                            <p class="text-gray-600">Always here to help</p>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <img src="https://cdn-icons-png.flaticon.com/512/1786/1786971.png" alt="Free Consultation" class="w-16 h-16 mb-4">
+                            <h4 class="font-bold mb-2">Free Consultation</h4>
+                            <p class="text-gray-600">Schedule a call</p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-8">Our Location</h2>
+                <p class="text-center mb-8">Shop No. 14, Block C-23/14, 2nd Floor Mukharjee Complex, Sanjay Place, Agra, Uttar Pradesh</p>
+                <div class="aspect-w-16 aspect-h-9">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3549.400407160701!2d78.00706791503443!3d27.20024437995891!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjfCsDEyJzAwLjkiTiA3OMKwMDAnMzMuMyJF!5e0!3m2!1sen!2sin!4v1647887568496!5m2!1sen!2sin"
+                        width="100%" 
+                        height="450" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy"
+                        class="rounded-lg shadow-lg">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+            <div class="max-w-3xl mx-auto space-y-6">
+                <!-- FAQ Item 1 -->
+                <div class="bg-white rounded-lg p-6 shadow-md">
+                    <button class="flex justify-between items-center w-full text-left">
+                        <span class="font-semibold">What are your office hours?</span>
+                        <i class="fas fa-chevron-down text-gray-400"></i>
+                    </button>
+                    <div class="mt-4 text-gray-600">
+                        Our office is open Monday through Saturday, 9:00 AM to 6:00 PM IST. However, our customer support is available 24/7.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="bg-white rounded-lg p-6 shadow-md">
+                    <button class="flex justify-between items-center w-full text-left">
+                        <span class="font-semibold">How quickly can I expect a response?</span>
+                        <i class="fas fa-chevron-down text-gray-400"></i>
+                    </button>
+                    <div class="mt-4 text-gray-600">
+                        We typically respond to all inquiries within 2-4 business hours. For urgent matters, please call our support line.
+                    </div>
+                </div>
+
+                <!-- Add more FAQ items as needed -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Include footer template -->
+    <div id="footer-placeholder"></div>
+
+      <!-- Floating WhatsApp & Chat Buttons -->
+      <div class="fixed bottom-6 right-6 flex flex-col space-y-4">
+        <button class="bg-blue-600 p-4 rounded-full shadow-lg hover:bg-blue-700">
+            <a href="tel:918979141354"><i class="fas fa-phone text-white text-2xl"></i></a>
+        </button>
+        <button class="bg-green-500 p-4 rounded-full shadow-lg hover:bg-green-600">
+            <a href="https://wa.me/918979141354"><i class="fab fa-whatsapp text-white text-2xl"></i></a>
+        </button>
+    </div>
+
+    <script>
+        // Function to load templates
+        async function loadTemplate(elementId, templatePath) {
+            try {
+                const response = await fetch(templatePath);
+                const html = await response.text();
+                document.getElementById(elementId).innerHTML = html;
+            } catch (error) {
+                console.error('Error loading template:', error);
+            }
+        }
+
+        // Load templates when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            loadTemplate('navbar-placeholder', 'templates/navbar.html');
+            loadTemplate('footer-placeholder', 'templates/footer.html');
+            loadTemplate('floating-content-placeholder', 'templates/floating-content.html');
+
+            // Handle contact form submission
+            const contactForm = document.getElementById('contactForm');
+            const successMessage = document.getElementById('successMessage');
+
+            contactForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                try {
+                    const formData = new FormData(contactForm);
+                    
+                    // Log form data for debugging
+                    for (let pair of formData.entries()) {
+                        console.log(pair[0] + ': ' + pair[1]);
+                    }
+
+                    const response = await fetch(contactForm.action, {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    const result = await response.json();
+
+                    if (result.success) {
+                        successMessage.classList.remove('hidden');
+                        successMessage.querySelector('span').textContent = result.message;
+                        contactForm.reset();
+
+                        // Add back button
+                        const backButton = document.createElement('button');
+                        backButton.textContent = 'Back to Home';
+                        backButton.className = 'mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors';
+                        backButton.onclick = () => window.location.href = '/';
+                        successMessage.appendChild(backButton);
+
+                        // Scroll to success message
+                        successMessage.scrollIntoView({ behavior: 'smooth' });
+                    } else {
+                        // Display validation errors if they exist
+                        if (result.errors && Array.isArray(result.errors)) {
+                            const errorMessage = result.errors.join('\n');
+                            successMessage.classList.remove('hidden');
+                            successMessage.classList.remove('bg-green-100', 'border-green-400', 'text-green-700');
+                            successMessage.classList.add('bg-red-100', 'border-red-400', 'text-red-700');
+                            successMessage.querySelector('span').innerHTML = errorMessage.replace(/\n/g, '<br>');
+                            successMessage.scrollIntoView({ behavior: 'smooth' });
+                        } else {
+                            alert(result.message || 'An error occurred. Please try again.');
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again.');
+                }
+            });
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html> 

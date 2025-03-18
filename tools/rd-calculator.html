@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RD Calculator</title>
+    <link rel="stylesheet" href="../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <!-- Header -->
+    <header class="bg-gray-900 shadow-md fixed w-full top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <h2 class="text-white text-2xl font-bold">Lawgical Station</h2>
+                <nav class="hidden md:flex items-center space-x-6">
+                    <a href="../index.html" class="text-white hover:text-blue-600">Home</a>
+                    <a href="../services.html" class="text-white hover:text-blue-600">Services</a>
+                    <a href="../about.html" class="text-white hover:text-blue-600">About Us</a>
+                    <a href="../tools.html" class="text-white hover:text-blue-600">Tools</a>
+                    <a href="../contact.html" class="text-white hover:text-blue-600">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container mx-auto px-4 py-8 md:py-16">
+        <div class="max-w-4xl mx-auto">
+            <!-- Header Section -->
+            <div class="text-center mb-8">
+                <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2">Recurring Deposit Calculator</h1>
+                <p class="text-gray-600">Calculate your RD maturity amount and interest earnings</p>
+            </div>
+
+            <!-- Main Calculator Card -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <!-- Grid Layout -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 p-4 md:p-8">
+                    <!-- Input Section -->
+                    <div class="space-y-4 md:space-y-6">
+                        <div class="bg-gray-50 p-4 md:p-6 rounded-lg">
+                            <div class="space-y-4">
+                                <div>
+                                    <label for="monthly-amount" class="block text-sm font-medium text-gray-700 mb-1">Monthly Deposit Amount (₹)</label>
+                                    <div class="relative">
+                                        <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">₹</span>
+                                        <input type="number" id="monthly-amount" value="5000" min="0"
+                                            class="block w-full pl-8 pr-4 py-3 rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500 bg-white shadow-sm">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="rate" class="block text-sm font-medium text-gray-700 mb-1">Interest Rate (% p.a)</label>
+                                    <div class="relative">
+                                        <input type="number" id="rate" value="6.5" min="0" step="0.1"
+                                            class="block w-full px-4 py-3 rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500 bg-white shadow-sm">
+                                        <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">%</span>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="tenure" class="block text-sm font-medium text-gray-700 mb-1">Tenure</label>
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div class="relative">
+                                            <input type="number" id="tenure" value="1" min="1"
+                                                class="block w-full px-4 py-3 rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500 bg-white shadow-sm">
+                                        </div>
+                                        <select id="tenure-type" class="block w-full px-4 py-3 rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500 bg-white shadow-sm">
+                                            <option value="years">Years</option>
+                                            <option value="months">Months</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="frequency" class="block text-sm font-medium text-gray-700 mb-1">Compounding Frequency</label>
+                                    <select id="frequency" class="block w-full px-4 py-3 rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500 bg-white shadow-sm">
+                                        <option value="1">Annually</option>
+                                        <option value="2">Half Yearly</option>
+                                        <option value="4">Quarterly</option>
+                                        <option value="12">Monthly</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Results Section -->
+                        <div class="bg-gray-50 p-4 md:p-6 rounded-lg">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Maturity Details</h3>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center p-3 bg-white rounded-lg">
+                                    <span class="text-gray-600">Monthly Deposit</span>
+                                    <span id="result-monthly" class="font-semibold text-gray-800">₹5,000</span>
+                                </div>
+                                <div class="flex justify-between items-center p-3 bg-white rounded-lg">
+                                    <span class="text-gray-600">Total Interest</span>
+                                    <span id="result-interest" class="font-semibold text-green-600">₹6,500</span>
+                                </div>
+                                <div class="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+                                    <span class="text-gray-600">Maturity Amount</span>
+                                    <span id="result-total" class="font-bold text-blue-600">₹1,06,500</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chart Section -->
+                    <div class="space-y-4 md:space-y-6">
+                        <div class="bg-gray-50 p-4 md:p-6 rounded-lg">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Investment Distribution</h3>
+                            <div class="w-full h-[300px] md:aspect-square">
+                                <canvas id="pieChart"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 md:p-6 rounded-lg">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Interest Breakdown</h3>
+                            <div class="w-full h-[200px]">
+                                <canvas id="barChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Info Card -->
+            <div class="mt-8 bg-blue-50 rounded-xl p-6">
+                <h3 class="text-lg font-semibold text-blue-800 mb-2">How RD Interest is Calculated</h3>
+                <p class="text-blue-600">Maturity Amount = P × {[(1 + r/n)^(nt) - 1] / (r/n)}</p>
+                <p class="text-sm text-blue-500 mt-2">Where: P = Monthly Deposit, r = Interest rate, n = Compounding frequency, t = Time period in years</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let pieChart, barChart;
+
+        function calculateRD() {
+            const monthlyDeposit = parseFloat(document.getElementById('monthly-amount').value);
+            const annualRate = parseFloat(document.getElementById('rate').value);
+            const tenure = parseFloat(document.getElementById('tenure').value);
+            const tenureType = document.getElementById('tenure-type').value;
+            const frequency = parseInt(document.getElementById('frequency').value);
+
+            // Convert tenure to years
+            let timeInYears;
+            switch(tenureType) {
+                case 'years':
+                    timeInYears = tenure;
+                    break;
+                case 'months':
+                    timeInYears = tenure / 12;
+                    break;
+            }
+
+            const rate = annualRate / 100;
+            const n = frequency;
+
+            // RD maturity calculation formula
+            const maturityAmount = monthlyDeposit * ((Math.pow(1 + (rate / n), n * timeInYears) - 1) / (rate / n));
+            const interestEarned = maturityAmount - (monthlyDeposit * n * timeInYears);
+
+            // Update results
+            document.getElementById('result-monthly').textContent = '₹' + monthlyDeposit.toLocaleString(undefined, {maximumFractionDigits: 0});
+            document.getElementById('result-interest').textContent = '₹' + interestEarned.toLocaleString(undefined, {maximumFractionDigits: 0});
+            document.getElementById('result-total').textContent = '₹' + maturityAmount.toLocaleString(undefined, {maximumFractionDigits: 0});
+
+            updateCharts(monthlyDeposit, interestEarned, timeInYears, frequency);
+        }
+
+        function updateCharts(monthlyDeposit, interest, years, frequency) {
+            // Update Pie Chart
+            if (pieChart) {
+                pieChart.destroy();
+            }
+
+            const ctx = document.getElementById('pieChart').getContext('2d');
+            pieChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Principal', 'Interest'],
+                    datasets: [{
+                        data: [monthlyDeposit * years * frequency, interest],
+                        backgroundColor: ['#3b82f6', '#22c55e'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                font: {
+                                    size: 14
+                                }
+                            }
+                        }
+                    },
+                    cutout: '60%'
+                }
+            });
+
+            // Update Bar Chart
+            if (barChart) {
+                barChart.destroy();
+            }
+
+            // Generate periodic interest data
+            const periods = Math.ceil(years * frequency);
+            const periodicInterest = interest / periods;
+            const labels = [];
+            const data = [];
+
+            for (let i = 1; i <= periods; i++) {
+                labels.push(frequency === 12 ? `Month ${i}` : 
+                          frequency === 4 ? `Quarter ${i}` : 
+                          `Year ${i}`);
+                data.push(periodicInterest);
+            }
+
+            const barCtx = document.getElementById('barChart').getContext('2d');
+            barChart = new Chart(barCtx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Interest Earned',
+                        data: data,
+                        backgroundColor: '#22c55e',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: value => '₹' + value.toLocaleString()
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Add event listeners
+        document.getElementById('monthly-amount').addEventListener('input', calculateRD);
+        document.getElementById('rate').addEventListener('input', calculateRD);
+        document.getElementById('tenure').addEventListener('input', calculateRD);
+        document.getElementById('tenure-type').addEventListener('change', calculateRD);
+        document.getElementById('frequency').addEventListener('change', calculateRD);
+
+        // Initial calculation
+        calculateRD();
+    </script>
+</body>
+</html>

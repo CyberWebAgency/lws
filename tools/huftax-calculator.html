@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HUF Tax Calculator</title>
+    <link rel="stylesheet" href="../styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Header -->
+    <header class="bg-gray-900 shadow-md fixed w-full top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <h2 class="text-white text-2xl font-bold">Lawgical Station</h2>
+                <nav class="hidden md:flex items-center space-x-6">
+                    <a href="../index.html" class="text-white hover:text-blue-600">Home</a>
+                    <a href="../services.html" class="text-white hover:text-blue-600">Services</a>
+                    <a href="../about.html" class="text-white hover:text-blue-600">About Us</a>
+                    <a href="../tools.html" class="text-white hover:text-blue-600">Tools</a>
+                    <a href="../contact.html" class="text-white hover:text-blue-600">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-8 md:py-16">
+        <div class="max-w-4xl mx-auto">
+            <!-- Header Section -->
+            <div class="text-center mb-8">
+                <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2">HUF Tax Calculator</h1>
+                <p class="text-gray-600">Calculate your HUF tax liability based on various income sources</p>
+            </div>
+
+            <!-- Main Calculator Card -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <!-- Grid Layout -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 p-4 md:p-8">
+                    <!-- Input Section -->
+                    <div class="space-y-4 md:space-y-6">
+                        <div class="bg-gray-50 p-4 md:p-6 rounded-lg">
+                            <div class="space-y-4">
+                                <div>
+                                    <label for="salary-income" class="block text-sm font-medium text-gray-700 mb-1">Income from Salary (₹)</label>
+                                    <input type="number" id="salary-income" value="300000" min="0"
+                                        class="block w-full px-4 py-3 rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500 bg-white shadow-sm">
+                                </div>
+
+                                <div>
+                                    <label for="house-income" class="block text-sm font-medium text-gray-700 mb-1">Income from House Property (₹)</label>
+                                    <input type="number" id="house-income" value="200000" min="0"
+                                        class="block w-full px-4 py-3 rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500 bg-white shadow-sm">
+                                </div>
+
+                                <div>
+                                    <label for="business-income" class="block text-sm font-medium text-gray-700 mb-1">Income from Business/Profession (₹)</label>
+                                    <input type="number" id="business-income" value="150000" min="0"
+                                        class="block w-full px-4 py-3 rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500 bg-white shadow-sm">
+                                </div>
+
+                                <div>
+                                    <label for="capital-gains" class="block text-sm font-medium text-gray-700 mb-1">Income from Capital Gains (₹)</label>
+                                    <input type="number" id="capital-gains" value="50000" min="0"
+                                        class="block w-full px-4 py-3 rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500 bg-white shadow-sm">
+                                </div>
+
+                                <div>
+                                    <label for="other-income" class="block text-sm font-medium text-gray-700 mb-1">Income from Other Sources (₹)</label>
+                                    <input type="number" id="other-income" value="100000" min="0"
+                                        class="block w-full px-4 py-3 rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500 bg-white shadow-sm">
+                                </div>
+
+                                <div>
+                                    <label for="deductions" class="block text-sm font-medium text-gray-700 mb-1">Deductions (₹)</label>
+                                    <input type="number" id="deductions" value="150000" min="0"
+                                        class="block w-full px-4 py-3 rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500 bg-white shadow-sm">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Results Section -->
+                        <div class="bg-gray-50 p-4 md:p-6 rounded-lg">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Tax Summary</h3>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center p-3 bg-white rounded-lg">
+                                    <span class="text-gray-600">Taxable Income</span>
+                                    <span id="result-taxable" class="font-semibold text-blue-600">₹0</span>
+                                </div>
+                                <div class="flex justify-between items-center p-3 bg-white rounded-lg">
+                                    <span class="text-gray-600">Estimated Tax</span>
+                                    <span id="result-tax" class="font-semibold text-green-600">₹0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chart Section -->
+                    <div class="space-y-4 md:space-y-6">
+                        <div class="bg-gray-50 p-4 md:p-6 rounded-lg">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-4">Income Distribution</h3>
+                            <div class="w-full h-[300px] md:aspect-square">
+                                <canvas id="incomeChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let incomeChart;
+
+        function calculateHufTax() {
+            const salaryIncome = parseFloat(document.getElementById('salary-income').value) || 0;
+            const houseIncome = parseFloat(document.getElementById('house-income').value) || 0;
+            const businessIncome = parseFloat(document.getElementById('business-income').value) || 0;
+            const capitalGains = parseFloat(document.getElementById('capital-gains').value) || 0;
+            const otherIncome = parseFloat(document.getElementById('other-income').value) || 0;
+            const deductions = parseFloat(document.getElementById('deductions').value) || 0;
+
+            const totalIncome = salaryIncome + houseIncome + businessIncome + capitalGains + otherIncome;
+            const taxableIncome = totalIncome - deductions;
+            let tax = 0;
+
+            if (taxableIncome > 250000) {
+                tax = (taxableIncome - 250000) * 0.05; // Example tax rate
+            }
+
+            document.getElementById('result-taxable').textContent = '₹' + taxableIncome.toLocaleString();
+            document.getElementById('result-tax').textContent = '₹' + tax.toLocaleString();
+
+            updateIncomeChart(salaryIncome, houseIncome, businessIncome, capitalGains, otherIncome, deductions);
+        }
+
+        function updateIncomeChart(salaryIncome, houseIncome, businessIncome, capitalGains, otherIncome, deductions) {
+            if (incomeChart) {
+                incomeChart.destroy();
+            }
+
+            const ctx = document.getElementById('incomeChart').getContext('2d');
+            incomeChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Salary', 'House Property', 'Business', 'Capital Gains', 'Other Income', 'Deductions'],
+                    datasets: [{
+                        data: [salaryIncome, houseIncome, businessIncome, capitalGains, otherIncome, deductions],
+                        backgroundColor: ['#3b82f6', '#22c55e', '#f97316', '#eab308', '#8b5cf6', '#ef4444'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                font: {
+                                    size: 14
+                                }
+                            }
+                        }
+                    },
+                    cutout: '60%'
+                }
+            });
+        }
+
+        document.getElementById('salary-income').addEventListener('input', calculateHufTax);
+        document.getElementById('house-income').addEventListener('input', calculateHufTax);
+        document.getElementById('business-income').addEventListener('input', calculateHufTax);
+        document.getElementById('capital-gains').addEventListener('input', calculateHufTax);
+        document.getElementById('other-income').addEventListener('input', calculateHufTax);
+        document.getElementById('deductions').addEventListener('input', calculateHufTax);
+
+        calculateHufTax();
+    </script>
+</body>
+</html> 
