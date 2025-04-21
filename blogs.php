@@ -9,56 +9,63 @@ $stmt = $conn->prepare("SELECT b.*, a.username as author_name
                        ORDER BY b.created_at DESC");
 $stmt->execute();
 $blogs = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+// Include header
+include 'templates/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - LWS</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="bg-gray-100">
-    <!-- Include your existing header/navigation here -->
+
+<div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-bold text-gray-900 mb-8">Our Blog</h1>
     
-    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <h1 class="text-3xl font-bold text-gray-900 mb-8">Our Blog</h1>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <?php foreach ($blogs as $blog): ?>
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <?php if ($blog['thumbnail']): ?>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <?php foreach ($blogs as $blog): ?>
+        <a href="blog-details.php?slug=<?php echo htmlspecialchars($blog['slug']); ?>" 
+           class="block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+            <?php if ($blog['thumbnail']): ?>
+            <div class="relative h-48">
                 <img src="<?php echo htmlspecialchars($blog['thumbnail']); ?>" 
                      alt="<?php echo htmlspecialchars($blog['title']); ?>"
-                     class="w-full h-48 object-cover">
-                <?php endif; ?>
+                     class="absolute inset-0 w-full h-full object-cover">
+            </div>
+            <?php endif; ?>
+            
+            <div class="p-6">
+                <div class="flex items-center text-sm text-gray-500 mb-2">
+                    <span><?php echo htmlspecialchars($blog['author_name']); ?></span>
+                    <span class="mx-2">•</span>
+                    <span><?php echo date('M d, Y', strtotime($blog['created_at'])); ?></span>
+                </div>
                 
-                <div class="p-6">
-                    <h2 class="text-xl font-semibold text-gray-900 mb-2">
-                        <a href="blog-details.php?slug=<?php echo htmlspecialchars($blog['slug']); ?>" 
-                           class="hover:text-indigo-600">
-                            <?php echo htmlspecialchars($blog['title']); ?>
-                        </a>
-                    </h2>
-                    
-                    <p class="text-gray-600 mb-4">
-                        <?php echo htmlspecialchars($blog['summary']); ?>
-                    </p>
-                    
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm text-gray-500">
-                            By <?php echo htmlspecialchars($blog['author_name']); ?>
-                        </span>
-                        <span class="text-sm text-gray-500">
-                            <?php echo date('M d, Y', strtotime($blog['created_at'])); ?>
-                        </span>
-                    </div>
+                <h2 class="text-xl font-semibold text-gray-900 mb-2">
+                    <?php echo htmlspecialchars($blog['title']); ?>
+                </h2>
+                
+                <p class="text-gray-600 line-clamp-3">
+                    <?php echo htmlspecialchars($blog['summary']); ?>
+                </p>
+                
+                <div class="mt-4 flex items-center text-indigo-600">
+                    <span class="text-sm font-medium">Read more</span>
+                    <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
                 </div>
             </div>
-            <?php endforeach; ?>
-        </div>
+        </a>
+        <?php endforeach; ?>
     </div>
-    
-    <!-- Include your existing footer here -->
-</body>
-</html> 
+</div>
+
+<style>
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+</style>
+
+<?php
+// Include footer
+include 'templates/footer.php';
+?> 
