@@ -24,6 +24,7 @@
                 <a href="services.html" class="text-white hover:text-blue-600">Services</a>
                 <a href="about.html" class="text-white hover:text-blue-600">About Us</a>
                 <a href="tools.html" class="text-white hover:text-blue-600">Tools</a>
+                <a href="blogs.php" class="text-white hover:text-blue-600">Blogs</a>
                 <a href="contact.html" class="text-white hover:text-blue-600">Contact</a>
             </nav>
 
