@@ -1,5 +1,5 @@
 <?php
-include '../includes/config.php';
+include '../backend/conn.php';
 
 // Destroy the session
 session_destroy();

@@ -1,5 +1,5 @@
 <?php
-include '../includes/config.php';
+include '../backend/conn.php';
 
 if (isLoggedIn()) {
     redirect('index.php');
