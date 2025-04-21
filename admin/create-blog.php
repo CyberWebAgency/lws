@@ -1,7 +1,11 @@
 <?php
 session_start();
 require_once '../backend/conn.php';
-requireAdminLogin();
+
+if (!isset($_SESSION['admin_id'])) {
+    header('Location: login.php');
+    exit();
+}
 
 $error = '';
 $success = '';
