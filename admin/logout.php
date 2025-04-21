@@ -1,9 +1,6 @@
 <?php
-include '../backend/conn.php';
-
-// Destroy the session
+session_start();
 session_destroy();
-
-// Redirect to login page
-redirect('login.php');
+header('Location: login.php');
+exit();
 ?> 
