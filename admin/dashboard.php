@@ -13,6 +13,10 @@ $stmt = $conn->prepare("SELECT b.*, a.username as author_name
                        ORDER BY b.created_at DESC");
 $stmt->execute();
 $blogs = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+// Get success message if exists
+$success_message = $_SESSION['success_message'] ?? '';
+unset($_SESSION['success_message']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,6 +43,12 @@ $blogs = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     </nav>
 
     <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <?php if ($success_message): ?>
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+                <span class="block sm:inline"><?php echo htmlspecialchars($success_message); ?></span>
+            </div>
+        <?php endif; ?>
+
         <div class="flex justify-between items-center mb-6">
             <h2 class="text-2xl font-bold">Blog Posts</h2>
             <a href="create-blog.php" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">
