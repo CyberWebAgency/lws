@@ -21,58 +21,7 @@
             <nav class="hidden md:flex items-center space-x-6" role="navigation" aria-label="Main navigation">
                 <a href="index.html" class="text-white hover:text-blue-600" aria-current="page">Home</a>
                 <!-- Services Dropdown -->
-                <div class="relative group">
-                    <button class="text-white hover:text-blue-600 flex items-center" aria-haspopup="true" aria-expanded="false">
-                        Services <i class="fas fa-chevron-down ml-1 text-sm" aria-hidden="true"></i>
-                    </button>
-                    <div class="absolute left-0 top-full bg-white text-gray-800 p-6 rounded-lg shadow-xl hidden group-hover:grid grid-cols-3 gap-6 w-[800px] z-50" role="menu" aria-orientation="vertical">
-                        <!-- Column 1 -->
-                        <div class="space-y-4">
-                            <a href="services.html#itr-filing" class="block hover:text-blue-600" role="menuitem">
-                                <div class="font-semibold mb-1">ITR Filing</div>
-                                <div class="text-sm text-gray-600">Assisted tax filing by qualified tax experts</div>
-                            </a>
-                            <a href="services.html#schedule-call" class="block hover:text-blue-600" role="menuitem">
-                                <div class="font-semibold mb-1">Schedule a Call</div>
-                                <div class="text-sm text-gray-600">Seamless access to consultations with tax experts</div>
-                            </a>
-                            <a href="services.html#tds-filing" class="block hover:text-blue-600" role="menuitem">
-                                <div class="font-semibold mb-1">TDS Return Filing</div>
-                                <div class="text-sm text-gray-600">Seamless TDS Filing Solutions</div>
-                            </a>
-                        </div>
-                        <!-- Column 2 -->
-                        <div class="space-y-4">
-                            <a href="services.html#tax-planning" class="block hover:text-blue-600" role="menuitem">
-                                <div class="font-semibold mb-1">Tax Planning</div>
-                                <div class="text-sm text-gray-600">Expert tax planning services</div>
-                            </a>
-                            <a href="services.html#gst-filing" class="block hover:text-blue-600" role="menuitem">
-                                <div class="font-semibold mb-1">GST Filing</div>
-                                <div class="text-sm text-gray-600">GST registration and timely filing</div>
-                            </a>
-                            <a href="services.html#business-license" class="block hover:text-blue-600" role="menuitem">
-                                <div class="font-semibold mb-1">Business License Registration</div>
-                                <div class="text-sm text-gray-600">Fast, simple business license registration</div>
-                            </a>
-                        </div>
-                        <!-- Column 3 -->
-                        <div class="space-y-4">
-                            <a href="services.html#income-tax-notice" class="block hover:text-blue-600" role="menuitem">
-                                <div class="font-semibold mb-1">Income Tax Notice</div>
-                                <div class="text-sm text-gray-600">Resolve notices of all types</div>
-                            </a>
-                            <a href="services.html#huf-registration" class="block hover:text-blue-600" role="menuitem">
-                                <div class="font-semibold mb-1">HUF Registration & Filing</div>
-                                <div class="text-sm text-gray-600">Streamline HUF Filing, Maximize Returns</div>
-                            </a>
-                            <a href="services.html#company-registration" class="block hover:text-blue-600" role="menuitem">
-                                <div class="font-semibold mb-1">Company Registration Online</div>
-                                <div class="text-sm text-gray-600">Easy online company registration</div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                <a href="services.html" class="text-white hover:text-blue-600">Services</a>
                 <a href="about.html" class="text-white hover:text-blue-600">About Us</a>
                 <a href="tools.html" class="text-white hover:text-blue-600">Tools</a>
                 <a href="contact.html" class="text-white hover:text-blue-600">Contact</a>
@@ -106,6 +55,7 @@
             <a href="services.html" class="block py-2 text-gray-700 hover:text-blue-600 border-b border-gray-100">Services</a>
             <a href="about.html" class="block py-2 text-gray-700 hover:text-blue-600 border-b border-gray-100">About Us</a>
             <a href="tools.html" class="block py-2 text-gray-700 hover:text-blue-600 border-b border-gray-100">Tools</a>
+            <a href="blogs.php" class="block py-2 text-gray-700 hover:text-blue-600 border-b border-gray-100">Blogs</a>
             <a href="contact.html" class="block py-2 text-gray-700 hover:text-blue-600 border-b border-gray-100">Contact</a>
         </nav>
         <div class="mt-8 space-y-4" role="navigation" aria-label="Mobile authentication">
