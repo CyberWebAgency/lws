@@ -13,7 +13,7 @@ $success = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = $_POST['title'];
-    $slug = strtolower(str_replace(' ', '-', $title));
+    $slug = strtolower(str_replace(' ', '-', preg_replace('/[^a-zA-Z0-9\s]/', '', $title)));
     $content = $_POST['content'];
     $meta_description = $_POST['meta_description'];
     $status = $_POST['status'];
@@ -24,28 +24,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $image2 = null;
     $image3 = null;
     
-    if (isset($_FILES['thumbnail']) && $_FILES['thumbnail']['error'] === UPLOAD_ERR_OK) {
-        $thumbnail = file_get_contents($_FILES['thumbnail']['tmp_name']);
+    // Function to handle image upload
+    function handleImageUpload($file) {
+        if (isset($file) && $file['error'] === UPLOAD_ERR_OK) {
+            // Check if file is an image
+            $check = getimagesize($file['tmp_name']);
+            if ($check !== false) {
+                return file_get_contents($file['tmp_name']);
+            }
+        }
+        return null;
     }
     
-    if (isset($_FILES['image1']) && $_FILES['image1']['error'] === UPLOAD_ERR_OK) {
-        $image1 = file_get_contents($_FILES['image1']['tmp_name']);
-    }
-    
-    if (isset($_FILES['image2']) && $_FILES['image2']['error'] === UPLOAD_ERR_OK) {
-        $image2 = file_get_contents($_FILES['image2']['tmp_name']);
-    }
-    
-    if (isset($_FILES['image3']) && $_FILES['image3']['error'] === UPLOAD_ERR_OK) {
-        $image3 = file_get_contents($_FILES['image3']['tmp_name']);
-    }
+    // Process each image
+    $thumbnail = handleImageUpload($_FILES['thumbnail']);
+    $image1 = handleImageUpload($_FILES['image1']);
+    $image2 = handleImageUpload($_FILES['image2']);
+    $image3 = handleImageUpload($_FILES['image3']);
     
     try {
+        // Check if slug already exists
+        $stmt = $conn->prepare("SELECT id FROM blogs WHERE slug = ?");
+        $stmt->bind_param("s", $slug);
+        $stmt->execute();
+        if ($stmt->get_result()->num_rows > 0) {
+            $slug = $slug . '-' . time(); // Append timestamp to make it unique
+        }
+        
+        // Insert blog post
         $stmt = $conn->prepare("INSERT INTO blogs (title, slug, content, thumbnail, image1, image2, image3, meta_description, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        
+        // Convert null values to empty strings for binding
+        $thumbnail = $thumbnail ?? '';
+        $image1 = $image1 ?? '';
+        $image2 = $image2 ?? '';
+        $image3 = $image3 ?? '';
+        
         $stmt->bind_param("sssbbbbss", $title, $slug, $content, $thumbnail, $image1, $image2, $image3, $meta_description, $status);
         
         if ($stmt->execute()) {
             $success = "Blog post created successfully!";
+            // Clear form
+            $_POST = array();
         } else {
             $error = "Error creating blog post: " . $conn->error;
         }
@@ -69,6 +89,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             selector: '#content',
             plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
             toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+            height: 500,
+            menubar: true
         });
     </script>
 </head>
@@ -94,22 +116,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <form method="POST" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="title" name="title" required>
+                <input type="text" class="form-control" id="title" name="title" value="<?php echo isset($_POST['title']) ? htmlspecialchars($_POST['title']) : ''; ?>" required>
             </div>
 
             <div class="mb-3">
                 <label for="content" class="form-label">Content</label>
-                <textarea class="form-control" id="content" name="content" rows="10" required></textarea>
+                <textarea class="form-control" id="content" name="content" required><?php echo isset($_POST['content']) ? htmlspecialchars($_POST['content']) : ''; ?></textarea>
             </div>
 
             <div class="mb-3">
                 <label for="meta_description" class="form-label">Meta Description</label>
-                <textarea class="form-control" id="meta_description" name="meta_description" rows="2"></textarea>
+                <textarea class="form-control" id="meta_description" name="meta_description" rows="2"><?php echo isset($_POST['meta_description']) ? htmlspecialchars($_POST['meta_description']) : ''; ?></textarea>
             </div>
 
             <div class="mb-3">
                 <label for="thumbnail" class="form-label">Thumbnail Image</label>
                 <input type="file" class="form-control" id="thumbnail" name="thumbnail" accept="image/*">
+                <small class="text-muted">Recommended size: 800x600 pixels</small>
             </div>
 
             <div class="mb-3">
@@ -130,8 +153,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="mb-3">
                 <label for="status" class="form-label">Status</label>
                 <select class="form-select" id="status" name="status">
-                    <option value="draft">Draft</option>
-                    <option value="published">Published</option>
+                    <option value="draft" <?php echo (isset($_POST['status']) && $_POST['status'] === 'draft') ? 'selected' : ''; ?>>Draft</option>
+                    <option value="published" <?php echo (isset($_POST['status']) && $_POST['status'] === 'published') ? 'selected' : ''; ?>>Published</option>
                 </select>
             </div>
 
