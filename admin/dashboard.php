@@ -1,8 +1,11 @@
 <?php
 session_start();
 require_once '../backend/conn.php';
-requireAdminLogin();
 
+if (!isset($_SESSION['admin_id'])) {
+    header('Location: login.php');
+    exit();
+}
 // Fetch all blogs
 $stmt = $conn->prepare("SELECT b.*, a.username as author_name 
                        FROM blogs b 
